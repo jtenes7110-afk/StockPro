@@ -6,9 +6,11 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.stockpro.model.Producto
 import com.example.stockpro.viewmodel.StockViewModel
 
 @Composable
@@ -18,6 +20,17 @@ fun CatalogoScreen(
     onEditarProducto: (Int) -> Unit,
     onVerReporte: () -> Unit
 ) {
+
+    var mostrarCriticos by remember {
+        mutableStateOf(false)
+    }
+
+    val productosMostrar: List<Producto> =
+        if (mostrarCriticos) {
+            viewModel.obtenerProductosEnRiesgo()
+        } else {
+            viewModel.productos
+        }
 
     Column(
         modifier = Modifier
@@ -31,11 +44,35 @@ fun CatalogoScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+
+            Button(
+                onClick = {
+                    mostrarCriticos = false
+                }
+            ) {
+                Text("Ver Todo")
+            }
+
+            Button(
+                onClick = {
+                    mostrarCriticos = true
+                }
+            ) {
+                Text("Stock Crítico")
+            }
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
         LazyColumn(
             modifier = Modifier.weight(1f)
         ) {
 
-            items(viewModel.productos) { producto ->
+            items(productosMostrar) { producto ->
 
                 Card(
                     modifier = Modifier
@@ -59,7 +96,7 @@ fun CatalogoScreen(
 
                             Text(
                                 text = "Stock: ${producto.stockActual}",
-                                color = androidx.compose.ui.graphics.Color.Red
+                                color = Color.Red
                             )
 
                         } else {
