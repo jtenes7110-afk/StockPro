@@ -31,7 +31,9 @@ fun CatalogoScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        LazyColumn {
+        LazyColumn(
+            modifier = Modifier.weight(1f)
+        ) {
 
             items(viewModel.productos) { producto ->
 
@@ -45,16 +47,25 @@ fun CatalogoScreen(
                         modifier = Modifier.padding(12.dp)
                     ) {
 
-                        Text(producto.nombre)
+                        Text(
+                            text = producto.nombre
+                        )
 
                         Text(
-                            "Stock: ${producto.stockActual}"
+                            text = "Precio: $${producto.precio}"
                         )
 
                         if (producto.stockActual < 5) {
 
                             Text(
-                                "⚠ Stock Crítico"
+                                text = "Stock: ${producto.stockActual}",
+                                color = androidx.compose.ui.graphics.Color.Red
+                            )
+
+                        } else {
+
+                            Text(
+                                text = "Stock: ${producto.stockActual}"
                             )
                         }
 

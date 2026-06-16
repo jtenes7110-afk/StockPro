@@ -10,5 +10,9 @@ object NavigationRoutes {
 
     const val REPORTE = "reporte"
 
-    const val CATALOGO_ARG = "catalogo/{nombreOperario}"
+    const val CATALOGO_ARG =
+        "catalogo/{nombreOperario}"
+
+    const val EDICION_ARG =
+        "edicion/{productoId}"
 }
