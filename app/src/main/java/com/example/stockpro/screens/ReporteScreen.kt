@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.stockpro.viewmodel.StockViewModel
 
@@ -37,6 +38,12 @@ fun ReporteScreen(
 
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
+        Text(
+            text = "Reporte Financiero",
+            style = MaterialTheme.typography.headlineMedium,
+            color = Color(0xFF1565C0)
+        )
 
         Text(
             text = "Capital Invertido Total",
